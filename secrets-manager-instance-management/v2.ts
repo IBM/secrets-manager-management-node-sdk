@@ -15,7 +15,7 @@
  */
 
 /**
- * IBM OpenAPI SDK Code Generator Version: 3.114.0-a902401e-20260427-192904
+ * IBM OpenAPI SDK Code Generator Version: 3.114.4-9b56d441-20260612-210048
  */
 
 import * as extend from 'extend';
@@ -347,17 +347,27 @@ namespace SecretsManagerInstanceManagementV2 {
    ************************/
 
   /**
-   * Instance.
+   * The service instance information.
    */
   export interface Instance {
-    /** Instance metadata for Vault Dedicated instances. */
-    instance: VaultDedicatedInstanceMetadata;
+    /** The instance CRN identifier. */
+    instance_crn: string;
+    /** Instance plan name. */
+    plan: Instance.Constants.Plan | string;
     /** Vault cluster information for Vault Dedicated instances. */
     vault_cluster: VaultDedicatedCluster;
     /** Instance endpoints for Vault Dedicated instances. */
     endpoints: VaultDedicatedInstanceEndpoints;
     /** Vault encryption configuration for Vault Dedicated instances. */
     encryption: VaultDedicatedInstanceEncryption;
+  }
+  export namespace Instance {
+    export namespace Constants {
+      /** Instance plan name. */
+      export enum Plan {
+        DEDICATED = 'dedicated',
+      }
+    }
   }
 
   /**
@@ -431,34 +441,6 @@ namespace SecretsManagerInstanceManagementV2 {
     public?: VaultDedicatedEndpointsData;
     /** Endpoint URLs for accessing the Vault Dedicated instance. */
     private: VaultDedicatedEndpointsData;
-  }
-
-  /**
-   * Instance metadata for Vault Dedicated instances.
-   */
-  export interface VaultDedicatedInstanceMetadata {
-    /** The instance CRN identifier. */
-    id: string;
-    /** Instance plan information. */
-    plan: VaultDedicatedInstancePlan;
-  }
-
-  /**
-   * Instance plan information.
-   */
-  export interface VaultDedicatedInstancePlan {
-    /** The plan name of this instance. */
-    name: VaultDedicatedInstancePlan.Constants.Name | string;
-  }
-  export namespace VaultDedicatedInstancePlan {
-    export namespace Constants {
-      /** The plan name of this instance. */
-      export enum Name {
-        TRIAL = 'trial',
-        STANDARD = 'standard',
-        DEDICATED = 'dedicated',
-      }
-    }
   }
 }
 

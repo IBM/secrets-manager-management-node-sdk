@@ -47,7 +47,7 @@ describe('SecretsManagerInstanceManagementV2_integration', () => {
 
   test('createVaultAdmintoken()', async () => {
     const params = {
-      instanceId: '60b40daa-1fd3-4f35-a994-2409cc0f270c',
+      instanceId: 'bfc50c2e-d66d-4f37-9ccf-9713f8325b39',
     };
 
     const res = await secretsManagerInstanceManagementService.createVaultAdmintoken(params);
@@ -58,7 +58,7 @@ describe('SecretsManagerInstanceManagementV2_integration', () => {
 
   test('getInstance()', async () => {
     const params = {
-      instanceId: '60b40daa-1fd3-4f35-a994-2409cc0f270c',
+      instanceId: 'bfc50c2e-d66d-4f37-9ccf-9713f8325b39',
     };
 
     const res = await secretsManagerInstanceManagementService.getInstance(params);
@@ -69,7 +69,7 @@ describe('SecretsManagerInstanceManagementV2_integration', () => {
 
   test('deleteInstanceAdmintokens()', async () => {
     const params = {
-      instanceId: '60b40daa-1fd3-4f35-a994-2409cc0f270c',
+      instanceId: 'bfc50c2e-d66d-4f37-9ccf-9713f8325b39',
     };
 
     const res = await secretsManagerInstanceManagementService.deleteInstanceAdmintokens(params);

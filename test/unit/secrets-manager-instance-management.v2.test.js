@@ -133,7 +133,7 @@ describe('SecretsManagerInstanceManagementV2', () => {
     describe('positive tests', () => {
       function __createVaultAdmintokenTest() {
         // Construct the params object for operation createVaultAdmintoken
-        const instanceId = '60b40daa-1fd3-4f35-a994-2409cc0f270c';
+        const instanceId = 'bfc50c2e-d66d-4f37-9ccf-9713f8325b39';
         const createVaultAdmintokenParams = {
           instanceId,
         };
@@ -172,7 +172,7 @@ describe('SecretsManagerInstanceManagementV2', () => {
 
       test('should prioritize user-given headers', () => {
         // parameters
-        const instanceId = '60b40daa-1fd3-4f35-a994-2409cc0f270c';
+        const instanceId = 'bfc50c2e-d66d-4f37-9ccf-9713f8325b39';
         const userAccept = 'fake/accept';
         const userContentType = 'fake/contentType';
         const createVaultAdmintokenParams = {
@@ -217,7 +217,7 @@ describe('SecretsManagerInstanceManagementV2', () => {
     describe('positive tests', () => {
       function __deleteInstanceAdmintokensTest() {
         // Construct the params object for operation deleteInstanceAdmintokens
-        const instanceId = '60b40daa-1fd3-4f35-a994-2409cc0f270c';
+        const instanceId = 'bfc50c2e-d66d-4f37-9ccf-9713f8325b39';
         const deleteInstanceAdmintokensParams = {
           instanceId,
         };
@@ -256,7 +256,7 @@ describe('SecretsManagerInstanceManagementV2', () => {
 
       test('should prioritize user-given headers', () => {
         // parameters
-        const instanceId = '60b40daa-1fd3-4f35-a994-2409cc0f270c';
+        const instanceId = 'bfc50c2e-d66d-4f37-9ccf-9713f8325b39';
         const userAccept = 'fake/accept';
         const userContentType = 'fake/contentType';
         const deleteInstanceAdmintokensParams = {
@@ -301,7 +301,7 @@ describe('SecretsManagerInstanceManagementV2', () => {
     describe('positive tests', () => {
       function __getInstanceTest() {
         // Construct the params object for operation getInstance
-        const instanceId = '60b40daa-1fd3-4f35-a994-2409cc0f270c';
+        const instanceId = 'bfc50c2e-d66d-4f37-9ccf-9713f8325b39';
         const getInstanceParams = {
           instanceId,
         };
@@ -340,7 +340,7 @@ describe('SecretsManagerInstanceManagementV2', () => {
 
       test('should prioritize user-given headers', () => {
         // parameters
-        const instanceId = '60b40daa-1fd3-4f35-a994-2409cc0f270c';
+        const instanceId = 'bfc50c2e-d66d-4f37-9ccf-9713f8325b39';
         const userAccept = 'fake/accept';
         const userContentType = 'fake/contentType';
         const getInstanceParams = {
