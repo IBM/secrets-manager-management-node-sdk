@@ -79,7 +79,7 @@ describe('SecretsManagerInstanceManagementV2', () => {
     // begin-create_vault_admintoken
 
     const params = {
-      instanceId: '60b40daa-1fd3-4f35-a994-2409cc0f270c',
+      instanceId: 'bfc50c2e-d66d-4f37-9ccf-9713f8325b39',
     };
 
     let res;
@@ -107,7 +107,7 @@ describe('SecretsManagerInstanceManagementV2', () => {
     // begin-get_instance
 
     const params = {
-      instanceId: '60b40daa-1fd3-4f35-a994-2409cc0f270c',
+      instanceId: 'bfc50c2e-d66d-4f37-9ccf-9713f8325b39',
     };
 
     let res;
@@ -134,7 +134,7 @@ describe('SecretsManagerInstanceManagementV2', () => {
     // begin-delete_instance_admintokens
 
     const params = {
-      instanceId: '60b40daa-1fd3-4f35-a994-2409cc0f270c',
+      instanceId: 'bfc50c2e-d66d-4f37-9ccf-9713f8325b39',
     };
 
     try {
