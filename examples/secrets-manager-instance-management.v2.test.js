@@ -79,7 +79,7 @@ describe('SecretsManagerInstanceManagementV2', () => {
     // begin-create_vault_admintoken
 
     const params = {
-      instanceId: 'bfc50c2e-d66d-4f37-9ccf-9713f8325b39',
+      id: 'bfc50c2e-d66d-4f37-9ccf-9713f8325b39',
     };
 
     let res;
@@ -107,7 +107,7 @@ describe('SecretsManagerInstanceManagementV2', () => {
     // begin-get_instance
 
     const params = {
-      instanceId: 'bfc50c2e-d66d-4f37-9ccf-9713f8325b39',
+      id: 'bfc50c2e-d66d-4f37-9ccf-9713f8325b39',
     };
 
     let res;
@@ -119,6 +119,111 @@ describe('SecretsManagerInstanceManagementV2', () => {
     }
 
     // end-get_instance
+  });
+
+  test('listInstanceDestinations request example', async () => {
+    consoleLogMock.mockImplementation((output) => {
+      originalLog(output);
+    });
+    consoleWarnMock.mockImplementation((output) => {
+      // if an error occurs, display the message and then fail the test
+      originalWarn(output);
+      expect(true).toBeFalsy();
+    });
+
+    originalLog('listInstanceDestinations() result:');
+    // begin-list_instance_destinations
+
+    const params = {
+      instanceId: 'bfc50c2e-d66d-4f37-9ccf-9713f8325b39',
+    };
+
+    let res;
+    try {
+      res = await secretsManagerInstanceManagementService.listInstanceDestinations(params);
+      console.log(JSON.stringify(res.result, null, 2));
+    } catch (err) {
+      console.warn(err);
+    }
+
+    // end-list_instance_destinations
+  });
+
+  test('createInstanceDestination request example', async () => {
+    consoleLogMock.mockImplementation((output) => {
+      originalLog(output);
+    });
+    consoleWarnMock.mockImplementation((output) => {
+      // if an error occurs, display the message and then fail the test
+      originalWarn(output);
+      expect(true).toBeFalsy();
+    });
+
+    // begin-create_instance_destination
+
+    const params = {
+      instanceId: 'bfc50c2e-d66d-4f37-9ccf-9713f8325b39',
+    };
+
+    try {
+      await secretsManagerInstanceManagementService.createInstanceDestination(params);
+    } catch (err) {
+      console.warn(err);
+    }
+
+    // end-create_instance_destination
+  });
+
+  test('getInstanceDestination request example', async () => {
+    consoleLogMock.mockImplementation((output) => {
+      originalLog(output);
+    });
+    consoleWarnMock.mockImplementation((output) => {
+      // if an error occurs, display the message and then fail the test
+      originalWarn(output);
+      expect(true).toBeFalsy();
+    });
+
+    // begin-get_instance_destination
+
+    const params = {
+      instanceId: 'bfc50c2e-d66d-4f37-9ccf-9713f8325b39',
+      destinationId: 'b2c3d4e5-f6a7-8901-bcde-f12345678901',
+    };
+
+    try {
+      await secretsManagerInstanceManagementService.getInstanceDestination(params);
+    } catch (err) {
+      console.warn(err);
+    }
+
+    // end-get_instance_destination
+  });
+
+  test('updateInstanceDestination request example', async () => {
+    consoleLogMock.mockImplementation((output) => {
+      originalLog(output);
+    });
+    consoleWarnMock.mockImplementation((output) => {
+      // if an error occurs, display the message and then fail the test
+      originalWarn(output);
+      expect(true).toBeFalsy();
+    });
+
+    // begin-update_instance_destination
+
+    const params = {
+      instanceId: 'bfc50c2e-d66d-4f37-9ccf-9713f8325b39',
+      destinationId: 'b2c3d4e5-f6a7-8901-bcde-f12345678901',
+    };
+
+    try {
+      await secretsManagerInstanceManagementService.updateInstanceDestination(params);
+    } catch (err) {
+      console.warn(err);
+    }
+
+    // end-update_instance_destination
   });
 
   test('deleteInstanceAdmintokens request example', async () => {
@@ -134,7 +239,7 @@ describe('SecretsManagerInstanceManagementV2', () => {
     // begin-delete_instance_admintokens
 
     const params = {
-      instanceId: 'bfc50c2e-d66d-4f37-9ccf-9713f8325b39',
+      id: 'bfc50c2e-d66d-4f37-9ccf-9713f8325b39',
     };
 
     try {
@@ -144,5 +249,31 @@ describe('SecretsManagerInstanceManagementV2', () => {
     }
 
     // end-delete_instance_admintokens
+  });
+
+  test('deleteInstanceDestination request example', async () => {
+    consoleLogMock.mockImplementation((output) => {
+      originalLog(output);
+    });
+    consoleWarnMock.mockImplementation((output) => {
+      // if an error occurs, display the message and then fail the test
+      originalWarn(output);
+      expect(true).toBeFalsy();
+    });
+
+    // begin-delete_instance_destination
+
+    const params = {
+      instanceId: 'bfc50c2e-d66d-4f37-9ccf-9713f8325b39',
+      destinationId: 'b2c3d4e5-f6a7-8901-bcde-f12345678901',
+    };
+
+    try {
+      await secretsManagerInstanceManagementService.deleteInstanceDestination(params);
+    } catch (err) {
+      console.warn(err);
+    }
+
+    // end-delete_instance_destination
   });
 });
