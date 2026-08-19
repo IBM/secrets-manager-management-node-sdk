@@ -133,9 +133,9 @@ describe('SecretsManagerInstanceManagementV2', () => {
     describe('positive tests', () => {
       function __createVaultAdmintokenTest() {
         // Construct the params object for operation createVaultAdmintoken
-        const instanceId = 'bfc50c2e-d66d-4f37-9ccf-9713f8325b39';
+        const id = 'bfc50c2e-d66d-4f37-9ccf-9713f8325b39';
         const createVaultAdmintokenParams = {
-          instanceId,
+          id,
         };
 
         const createVaultAdmintokenResult = secretsManagerInstanceManagementService.createVaultAdmintoken(createVaultAdmintokenParams);
@@ -148,11 +148,11 @@ describe('SecretsManagerInstanceManagementV2', () => {
 
         const mockRequestOptions = getOptions(createRequestMock);
 
-        checkUrlAndMethod(mockRequestOptions, '/api/v2/instances/{instance_id}/admintokens', 'POST');
+        checkUrlAndMethod(mockRequestOptions, '/v2/instances/{id}/admintokens', 'POST');
         const expectedAccept = 'application/json';
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
-        expect(mockRequestOptions.path.instance_id).toEqual(instanceId);
+        expect(mockRequestOptions.path.id).toEqual(id);
       }
 
       test('should pass the right params to createRequest with enable and disable retries', () => {
@@ -172,11 +172,11 @@ describe('SecretsManagerInstanceManagementV2', () => {
 
       test('should prioritize user-given headers', () => {
         // parameters
-        const instanceId = 'bfc50c2e-d66d-4f37-9ccf-9713f8325b39';
+        const id = 'bfc50c2e-d66d-4f37-9ccf-9713f8325b39';
         const userAccept = 'fake/accept';
         const userContentType = 'fake/contentType';
         const createVaultAdmintokenParams = {
-          instanceId,
+          id,
           headers: {
             Accept: userAccept,
             'Content-Type': userContentType,
@@ -217,9 +217,9 @@ describe('SecretsManagerInstanceManagementV2', () => {
     describe('positive tests', () => {
       function __deleteInstanceAdmintokensTest() {
         // Construct the params object for operation deleteInstanceAdmintokens
-        const instanceId = 'bfc50c2e-d66d-4f37-9ccf-9713f8325b39';
+        const id = 'bfc50c2e-d66d-4f37-9ccf-9713f8325b39';
         const deleteInstanceAdmintokensParams = {
-          instanceId,
+          id,
         };
 
         const deleteInstanceAdmintokensResult = secretsManagerInstanceManagementService.deleteInstanceAdmintokens(deleteInstanceAdmintokensParams);
@@ -232,11 +232,11 @@ describe('SecretsManagerInstanceManagementV2', () => {
 
         const mockRequestOptions = getOptions(createRequestMock);
 
-        checkUrlAndMethod(mockRequestOptions, '/api/v2/instances/{instance_id}/admintokens', 'DELETE');
+        checkUrlAndMethod(mockRequestOptions, '/v2/instances/{id}/admintokens', 'DELETE');
         const expectedAccept = undefined;
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
-        expect(mockRequestOptions.path.instance_id).toEqual(instanceId);
+        expect(mockRequestOptions.path.id).toEqual(id);
       }
 
       test('should pass the right params to createRequest with enable and disable retries', () => {
@@ -256,11 +256,11 @@ describe('SecretsManagerInstanceManagementV2', () => {
 
       test('should prioritize user-given headers', () => {
         // parameters
-        const instanceId = 'bfc50c2e-d66d-4f37-9ccf-9713f8325b39';
+        const id = 'bfc50c2e-d66d-4f37-9ccf-9713f8325b39';
         const userAccept = 'fake/accept';
         const userContentType = 'fake/contentType';
         const deleteInstanceAdmintokensParams = {
-          instanceId,
+          id,
           headers: {
             Accept: userAccept,
             'Content-Type': userContentType,
@@ -301,9 +301,9 @@ describe('SecretsManagerInstanceManagementV2', () => {
     describe('positive tests', () => {
       function __getInstanceTest() {
         // Construct the params object for operation getInstance
-        const instanceId = 'bfc50c2e-d66d-4f37-9ccf-9713f8325b39';
+        const id = 'bfc50c2e-d66d-4f37-9ccf-9713f8325b39';
         const getInstanceParams = {
-          instanceId,
+          id,
         };
 
         const getInstanceResult = secretsManagerInstanceManagementService.getInstance(getInstanceParams);
@@ -316,11 +316,11 @@ describe('SecretsManagerInstanceManagementV2', () => {
 
         const mockRequestOptions = getOptions(createRequestMock);
 
-        checkUrlAndMethod(mockRequestOptions, '/api/v2/instances/{instance_id}', 'GET');
+        checkUrlAndMethod(mockRequestOptions, '/v2/instances/{id}', 'GET');
         const expectedAccept = 'application/json';
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
-        expect(mockRequestOptions.path.instance_id).toEqual(instanceId);
+        expect(mockRequestOptions.path.id).toEqual(id);
       }
 
       test('should pass the right params to createRequest with enable and disable retries', () => {
@@ -340,11 +340,11 @@ describe('SecretsManagerInstanceManagementV2', () => {
 
       test('should prioritize user-given headers', () => {
         // parameters
-        const instanceId = 'bfc50c2e-d66d-4f37-9ccf-9713f8325b39';
+        const id = 'bfc50c2e-d66d-4f37-9ccf-9713f8325b39';
         const userAccept = 'fake/accept';
         const userContentType = 'fake/contentType';
         const getInstanceParams = {
-          instanceId,
+          id,
           headers: {
             Accept: userAccept,
             'Content-Type': userContentType,
@@ -372,6 +372,452 @@ describe('SecretsManagerInstanceManagementV2', () => {
         let err;
         try {
           await secretsManagerInstanceManagementService.getInstance();
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+    });
+  });
+
+  describe('listInstanceDestinations', () => {
+    describe('positive tests', () => {
+      function __listInstanceDestinationsTest() {
+        // Construct the params object for operation listInstanceDestinations
+        const instanceId = 'bfc50c2e-d66d-4f37-9ccf-9713f8325b39';
+        const state = 'not_started';
+        const listInstanceDestinationsParams = {
+          instanceId,
+          state,
+        };
+
+        const listInstanceDestinationsResult = secretsManagerInstanceManagementService.listInstanceDestinations(listInstanceDestinationsParams);
+
+        // all methods should return a Promise
+        expectToBePromise(listInstanceDestinationsResult);
+
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
+
+        const mockRequestOptions = getOptions(createRequestMock);
+
+        checkUrlAndMethod(mockRequestOptions, '/v2/instances/{instance_id}/destinations', 'GET');
+        const expectedAccept = 'application/json';
+        const expectedContentType = undefined;
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.qs.state).toEqual(state);
+        expect(mockRequestOptions.path.instance_id).toEqual(instanceId);
+      }
+
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __listInstanceDestinationsTest();
+
+        // enable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerInstanceManagementService.enableRetries();
+        __listInstanceDestinationsTest();
+
+        // disable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerInstanceManagementService.disableRetries();
+        __listInstanceDestinationsTest();
+      });
+
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const instanceId = 'bfc50c2e-d66d-4f37-9ccf-9713f8325b39';
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const listInstanceDestinationsParams = {
+          instanceId,
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
+
+        secretsManagerInstanceManagementService.listInstanceDestinations(listInstanceDestinationsParams);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
+    });
+
+    describe('negative tests', () => {
+      test('should enforce required parameters', async () => {
+        let err;
+        try {
+          await secretsManagerInstanceManagementService.listInstanceDestinations({});
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+
+      test('should reject promise when required params are not given', async () => {
+        let err;
+        try {
+          await secretsManagerInstanceManagementService.listInstanceDestinations();
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+    });
+  });
+
+  describe('createInstanceDestination', () => {
+    describe('positive tests', () => {
+      function __createInstanceDestinationTest() {
+        // Construct the params object for operation createInstanceDestination
+        const instanceId = 'bfc50c2e-d66d-4f37-9ccf-9713f8325b39';
+        const createInstanceDestinationParams = {
+          instanceId,
+        };
+
+        const createInstanceDestinationResult = secretsManagerInstanceManagementService.createInstanceDestination(createInstanceDestinationParams);
+
+        // all methods should return a Promise
+        expectToBePromise(createInstanceDestinationResult);
+
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
+
+        const mockRequestOptions = getOptions(createRequestMock);
+
+        checkUrlAndMethod(mockRequestOptions, '/v2/instances/{instance_id}/destinations', 'POST');
+        const expectedAccept = 'application/json';
+        const expectedContentType = 'application/json';
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.path.instance_id).toEqual(instanceId);
+      }
+
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __createInstanceDestinationTest();
+
+        // enable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerInstanceManagementService.enableRetries();
+        __createInstanceDestinationTest();
+
+        // disable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerInstanceManagementService.disableRetries();
+        __createInstanceDestinationTest();
+      });
+
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const instanceId = 'bfc50c2e-d66d-4f37-9ccf-9713f8325b39';
+        const destinationPrototype = createInstanceDestinationRequestModel;
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const createInstanceDestinationParams = {
+          instanceId,
+          destinationPrototype,
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
+
+        secretsManagerInstanceManagementService.createInstanceDestination(createInstanceDestinationParams);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
+    });
+
+    describe('negative tests', () => {
+      test('should enforce required parameters', async () => {
+        let err;
+        try {
+          await secretsManagerInstanceManagementService.createInstanceDestination({});
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+
+      test('should reject promise when required params are not given', async () => {
+        let err;
+        try {
+          await secretsManagerInstanceManagementService.createInstanceDestination();
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+    });
+  });
+
+  describe('getInstanceDestination', () => {
+    describe('positive tests', () => {
+      function __getInstanceDestinationTest() {
+        // Construct the params object for operation getInstanceDestination
+        const instanceId = 'bfc50c2e-d66d-4f37-9ccf-9713f8325b39';
+        const destinationId = 'b2c3d4e5-f6a7-8901-bcde-f12345678901';
+        const getInstanceDestinationParams = {
+          instanceId,
+          destinationId,
+        };
+
+        const getInstanceDestinationResult = secretsManagerInstanceManagementService.getInstanceDestination(getInstanceDestinationParams);
+
+        // all methods should return a Promise
+        expectToBePromise(getInstanceDestinationResult);
+
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
+
+        const mockRequestOptions = getOptions(createRequestMock);
+
+        checkUrlAndMethod(mockRequestOptions, '/v2/instances/{instance_id}/destinations/{destination_id}', 'GET');
+        const expectedAccept = 'application/json';
+        const expectedContentType = undefined;
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.path.instance_id).toEqual(instanceId);
+        expect(mockRequestOptions.path.destination_id).toEqual(destinationId);
+      }
+
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __getInstanceDestinationTest();
+
+        // enable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerInstanceManagementService.enableRetries();
+        __getInstanceDestinationTest();
+
+        // disable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerInstanceManagementService.disableRetries();
+        __getInstanceDestinationTest();
+      });
+
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const instanceId = 'bfc50c2e-d66d-4f37-9ccf-9713f8325b39';
+        const destinationId = 'b2c3d4e5-f6a7-8901-bcde-f12345678901';
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const getInstanceDestinationParams = {
+          instanceId,
+          destinationId,
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
+
+        secretsManagerInstanceManagementService.getInstanceDestination(getInstanceDestinationParams);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
+    });
+
+    describe('negative tests', () => {
+      test('should enforce required parameters', async () => {
+        let err;
+        try {
+          await secretsManagerInstanceManagementService.getInstanceDestination({});
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+
+      test('should reject promise when required params are not given', async () => {
+        let err;
+        try {
+          await secretsManagerInstanceManagementService.getInstanceDestination();
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+    });
+  });
+
+  describe('updateInstanceDestination', () => {
+    describe('positive tests', () => {
+      function __updateInstanceDestinationTest() {
+        // Construct the params object for operation updateInstanceDestination
+        const instanceId = 'bfc50c2e-d66d-4f37-9ccf-9713f8325b39';
+        const destinationId = 'b2c3d4e5-f6a7-8901-bcde-f12345678901';
+        const name = 'production-postgres-db';
+        const description = 'Updated description for production database';
+        const updateInstanceDestinationParams = {
+          instanceId,
+          destinationId,
+          name,
+          description,
+        };
+
+        const updateInstanceDestinationResult = secretsManagerInstanceManagementService.updateInstanceDestination(updateInstanceDestinationParams);
+
+        // all methods should return a Promise
+        expectToBePromise(updateInstanceDestinationResult);
+
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
+
+        const mockRequestOptions = getOptions(createRequestMock);
+
+        checkUrlAndMethod(mockRequestOptions, '/v2/instances/{instance_id}/destinations/{destination_id}', 'PATCH');
+        const expectedAccept = 'application/json';
+        const expectedContentType = 'application/merge-patch+json';
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.body.name).toEqual(name);
+        expect(mockRequestOptions.body.description).toEqual(description);
+        expect(mockRequestOptions.path.instance_id).toEqual(instanceId);
+        expect(mockRequestOptions.path.destination_id).toEqual(destinationId);
+      }
+
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __updateInstanceDestinationTest();
+
+        // enable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerInstanceManagementService.enableRetries();
+        __updateInstanceDestinationTest();
+
+        // disable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerInstanceManagementService.disableRetries();
+        __updateInstanceDestinationTest();
+      });
+
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const instanceId = 'bfc50c2e-d66d-4f37-9ccf-9713f8325b39';
+        const destinationId = 'b2c3d4e5-f6a7-8901-bcde-f12345678901';
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const updateInstanceDestinationParams = {
+          instanceId,
+          destinationId,
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
+
+        secretsManagerInstanceManagementService.updateInstanceDestination(updateInstanceDestinationParams);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
+    });
+
+    describe('negative tests', () => {
+      test('should enforce required parameters', async () => {
+        let err;
+        try {
+          await secretsManagerInstanceManagementService.updateInstanceDestination({});
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+
+      test('should reject promise when required params are not given', async () => {
+        let err;
+        try {
+          await secretsManagerInstanceManagementService.updateInstanceDestination();
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+    });
+  });
+
+  describe('deleteInstanceDestination', () => {
+    describe('positive tests', () => {
+      function __deleteInstanceDestinationTest() {
+        // Construct the params object for operation deleteInstanceDestination
+        const instanceId = 'bfc50c2e-d66d-4f37-9ccf-9713f8325b39';
+        const destinationId = 'b2c3d4e5-f6a7-8901-bcde-f12345678901';
+        const deleteInstanceDestinationParams = {
+          instanceId,
+          destinationId,
+        };
+
+        const deleteInstanceDestinationResult = secretsManagerInstanceManagementService.deleteInstanceDestination(deleteInstanceDestinationParams);
+
+        // all methods should return a Promise
+        expectToBePromise(deleteInstanceDestinationResult);
+
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
+
+        const mockRequestOptions = getOptions(createRequestMock);
+
+        checkUrlAndMethod(mockRequestOptions, '/v2/instances/{instance_id}/destinations/{destination_id}', 'DELETE');
+        const expectedAccept = undefined;
+        const expectedContentType = undefined;
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.path.instance_id).toEqual(instanceId);
+        expect(mockRequestOptions.path.destination_id).toEqual(destinationId);
+      }
+
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __deleteInstanceDestinationTest();
+
+        // enable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerInstanceManagementService.enableRetries();
+        __deleteInstanceDestinationTest();
+
+        // disable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerInstanceManagementService.disableRetries();
+        __deleteInstanceDestinationTest();
+      });
+
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const instanceId = 'bfc50c2e-d66d-4f37-9ccf-9713f8325b39';
+        const destinationId = 'b2c3d4e5-f6a7-8901-bcde-f12345678901';
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const deleteInstanceDestinationParams = {
+          instanceId,
+          destinationId,
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
+
+        secretsManagerInstanceManagementService.deleteInstanceDestination(deleteInstanceDestinationParams);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
+    });
+
+    describe('negative tests', () => {
+      test('should enforce required parameters', async () => {
+        let err;
+        try {
+          await secretsManagerInstanceManagementService.deleteInstanceDestination({});
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+
+      test('should reject promise when required params are not given', async () => {
+        let err;
+        try {
+          await secretsManagerInstanceManagementService.deleteInstanceDestination();
         } catch (e) {
           err = e;
         }

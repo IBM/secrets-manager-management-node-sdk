@@ -47,7 +47,7 @@ describe('SecretsManagerInstanceManagementV2_integration', () => {
 
   test('createVaultAdmintoken()', async () => {
     const params = {
-      instanceId: 'bfc50c2e-d66d-4f37-9ccf-9713f8325b39',
+      id: 'bfc50c2e-d66d-4f37-9ccf-9713f8325b39',
     };
 
     const res = await secretsManagerInstanceManagementService.createVaultAdmintoken(params);
@@ -58,7 +58,7 @@ describe('SecretsManagerInstanceManagementV2_integration', () => {
 
   test('getInstance()', async () => {
     const params = {
-      instanceId: 'bfc50c2e-d66d-4f37-9ccf-9713f8325b39',
+      id: 'bfc50c2e-d66d-4f37-9ccf-9713f8325b39',
     };
 
     const res = await secretsManagerInstanceManagementService.getInstance(params);
@@ -67,12 +67,73 @@ describe('SecretsManagerInstanceManagementV2_integration', () => {
     expect(res.result).toBeDefined();
   });
 
-  test('deleteInstanceAdmintokens()', async () => {
+  test('listInstanceDestinations()', async () => {
+    const params = {
+      instanceId: 'bfc50c2e-d66d-4f37-9ccf-9713f8325b39',
+      state: 'not_started',
+    };
+
+    const res = await secretsManagerInstanceManagementService.listInstanceDestinations(params);
+    expect(res).toBeDefined();
+    expect(res.status).toBe(200);
+    expect(res.result).toBeDefined();
+  });
+
+  test('createInstanceDestination()', async () => {
     const params = {
       instanceId: 'bfc50c2e-d66d-4f37-9ccf-9713f8325b39',
     };
 
+    const res = await secretsManagerInstanceManagementService.createInstanceDestination(params);
+    expect(res).toBeDefined();
+    expect(res.status).toBe(201);
+    expect(res.result).toBeDefined();
+  });
+
+  test('getInstanceDestination()', async () => {
+    const params = {
+      instanceId: 'bfc50c2e-d66d-4f37-9ccf-9713f8325b39',
+      destinationId: 'b2c3d4e5-f6a7-8901-bcde-f12345678901',
+    };
+
+    const res = await secretsManagerInstanceManagementService.getInstanceDestination(params);
+    expect(res).toBeDefined();
+    expect(res.status).toBe(200);
+    expect(res.result).toBeDefined();
+  });
+
+  test('updateInstanceDestination()', async () => {
+    const params = {
+      instanceId: 'bfc50c2e-d66d-4f37-9ccf-9713f8325b39',
+      destinationId: 'b2c3d4e5-f6a7-8901-bcde-f12345678901',
+      name: 'production-postgres-db',
+      description: 'Updated description for production database',
+    };
+
+    const res = await secretsManagerInstanceManagementService.updateInstanceDestination(params);
+    expect(res).toBeDefined();
+    expect(res.status).toBe(200);
+    expect(res.result).toBeDefined();
+  });
+
+  test('deleteInstanceAdmintokens()', async () => {
+    const params = {
+      id: 'bfc50c2e-d66d-4f37-9ccf-9713f8325b39',
+    };
+
     const res = await secretsManagerInstanceManagementService.deleteInstanceAdmintokens(params);
+    expect(res).toBeDefined();
+    expect(res.status).toBe(204);
+    expect(res.result).toBeDefined();
+  });
+
+  test('deleteInstanceDestination()', async () => {
+    const params = {
+      instanceId: 'bfc50c2e-d66d-4f37-9ccf-9713f8325b39',
+      destinationId: 'b2c3d4e5-f6a7-8901-bcde-f12345678901',
+    };
+
+    const res = await secretsManagerInstanceManagementService.deleteInstanceDestination(params);
     expect(res).toBeDefined();
     expect(res.status).toBe(204);
     expect(res.result).toBeDefined();
