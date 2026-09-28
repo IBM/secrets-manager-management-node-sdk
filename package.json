@@ -1,6 +1,6 @@
 {
   "name": "@ibm-cloud/secrets-manager-instance-management",
-  "version": "2.0.0",
+  "version": "2.0.3",
   "description": "Client library for IBM Cloud Secrets Manager instance management",
   "repository": {
     "type": "git",

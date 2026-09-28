@@ -30,6 +30,12 @@
     ],
     "@semantic-release/release-notes-generator",
     [
+      "@semantic-release/exec",
+      {
+        "prepareCmd": "npm version ${nextRelease.version} --no-git-tag-version --allow-same-version && npm run build"
+      }
+    ],
+    [
       "@semantic-release/npm",
       {
         "pkgRoot": "dist",
