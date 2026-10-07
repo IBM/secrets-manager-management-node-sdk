@@ -134,8 +134,10 @@ describe('SecretsManagerInstanceManagementV2', () => {
       function __createVaultAdmintokenTest() {
         // Construct the params object for operation createVaultAdmintoken
         const id = 'bfc50c2e-d66d-4f37-9ccf-9713f8325b39';
+        const responseWrapping = true;
         const createVaultAdmintokenParams = {
           id,
+          responseWrapping,
         };
 
         const createVaultAdmintokenResult = secretsManagerInstanceManagementService.createVaultAdmintoken(createVaultAdmintokenParams);
@@ -150,8 +152,9 @@ describe('SecretsManagerInstanceManagementV2', () => {
 
         checkUrlAndMethod(mockRequestOptions, '/v2/instances/{id}/admintokens', 'POST');
         const expectedAccept = 'application/json';
-        const expectedContentType = undefined;
+        const expectedContentType = 'application/json';
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.body.response_wrapping).toEqual(responseWrapping);
         expect(mockRequestOptions.path.id).toEqual(id);
       }
 
@@ -470,11 +473,23 @@ describe('SecretsManagerInstanceManagementV2', () => {
 
   describe('createInstanceDestination', () => {
     describe('positive tests', () => {
+      // Request models needed by this operation.
+
+      // CreateDestinationRequestIbmCloudDatabaseDestinationPrototype
+      const createDestinationRequestModel = {
+        name: 'my-postgres',
+        type: 'ibm_cloud_database',
+        description: 'Production PostgreSQL database',
+        crn: 'crn:v1:bluemix:public:databases-for-postgresql:us-south:a/e91c8f42b3d74e1a9c2f05d8b67a3e10:3f8b1c7a-9d42-4e6f-b8a5-2c1d9e7f4b83::',
+      };
+
       function __createInstanceDestinationTest() {
         // Construct the params object for operation createInstanceDestination
         const instanceId = 'bfc50c2e-d66d-4f37-9ccf-9713f8325b39';
+        const destinationPrototype = createDestinationRequestModel;
         const createInstanceDestinationParams = {
           instanceId,
+          destinationPrototype,
         };
 
         const createInstanceDestinationResult = secretsManagerInstanceManagementService.createInstanceDestination(createInstanceDestinationParams);
@@ -491,6 +506,7 @@ describe('SecretsManagerInstanceManagementV2', () => {
         const expectedAccept = 'application/json';
         const expectedContentType = 'application/json';
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.body).toEqual(destinationPrototype);
         expect(mockRequestOptions.path.instance_id).toEqual(instanceId);
       }
 
@@ -512,7 +528,7 @@ describe('SecretsManagerInstanceManagementV2', () => {
       test('should prioritize user-given headers', () => {
         // parameters
         const instanceId = 'bfc50c2e-d66d-4f37-9ccf-9713f8325b39';
-        const destinationPrototype = createInstanceDestinationRequestModel;
+        const destinationPrototype = createDestinationRequestModel;
         const userAccept = 'fake/accept';
         const userContentType = 'fake/contentType';
         const createInstanceDestinationParams = {
@@ -649,8 +665,8 @@ describe('SecretsManagerInstanceManagementV2', () => {
         // Construct the params object for operation updateInstanceDestination
         const instanceId = 'bfc50c2e-d66d-4f37-9ccf-9713f8325b39';
         const destinationId = 'b2c3d4e5-f6a7-8901-bcde-f12345678901';
-        const name = 'production-postgres-db';
-        const description = 'Updated description for production database';
+        const name = 'my-postgres-updated';
+        const description = 'Production PostgreSQL database';
         const updateInstanceDestinationParams = {
           instanceId,
           destinationId,
@@ -760,7 +776,7 @@ describe('SecretsManagerInstanceManagementV2', () => {
         const mockRequestOptions = getOptions(createRequestMock);
 
         checkUrlAndMethod(mockRequestOptions, '/v2/instances/{instance_id}/destinations/{destination_id}', 'DELETE');
-        const expectedAccept = undefined;
+        const expectedAccept = 'application/json';
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
         expect(mockRequestOptions.path.instance_id).toEqual(instanceId);
