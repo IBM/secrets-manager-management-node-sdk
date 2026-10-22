@@ -48,6 +48,7 @@ describe('SecretsManagerInstanceManagementV2_integration', () => {
   test('createVaultAdmintoken()', async () => {
     const params = {
       id: 'bfc50c2e-d66d-4f37-9ccf-9713f8325b39',
+      responseWrapping: true,
     };
 
     const res = await secretsManagerInstanceManagementService.createVaultAdmintoken(params);
@@ -80,13 +81,24 @@ describe('SecretsManagerInstanceManagementV2_integration', () => {
   });
 
   test('createInstanceDestination()', async () => {
+    // Request models needed by this operation.
+
+    // CreateDestinationRequestIbmCloudDatabaseDestinationPrototype
+    const createDestinationRequestModel = {
+      name: 'my-postgres',
+      type: 'ibm_cloud_database',
+      description: 'Production PostgreSQL database',
+      crn: 'crn:v1:bluemix:public:databases-for-postgresql:us-south:a/e91c8f42b3d74e1a9c2f05d8b67a3e10:3f8b1c7a-9d42-4e6f-b8a5-2c1d9e7f4b83::',
+    };
+
     const params = {
       instanceId: 'bfc50c2e-d66d-4f37-9ccf-9713f8325b39',
+      destinationPrototype: createDestinationRequestModel,
     };
 
     const res = await secretsManagerInstanceManagementService.createInstanceDestination(params);
     expect(res).toBeDefined();
-    expect(res.status).toBe(201);
+    expect(res.status).toBe(202);
     expect(res.result).toBeDefined();
   });
 
@@ -106,8 +118,8 @@ describe('SecretsManagerInstanceManagementV2_integration', () => {
     const params = {
       instanceId: 'bfc50c2e-d66d-4f37-9ccf-9713f8325b39',
       destinationId: 'b2c3d4e5-f6a7-8901-bcde-f12345678901',
-      name: 'production-postgres-db',
-      description: 'Updated description for production database',
+      name: 'my-postgres-updated',
+      description: 'Production PostgreSQL database',
     };
 
     const res = await secretsManagerInstanceManagementService.updateInstanceDestination(params);
@@ -135,7 +147,7 @@ describe('SecretsManagerInstanceManagementV2_integration', () => {
 
     const res = await secretsManagerInstanceManagementService.deleteInstanceDestination(params);
     expect(res).toBeDefined();
-    expect(res.status).toBe(204);
+    expect(res.status).toBe(202);
     expect(res.result).toBeDefined();
   });
 });

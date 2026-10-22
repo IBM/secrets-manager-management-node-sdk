@@ -15,7 +15,7 @@
  */
 
 /**
- * IBM OpenAPI SDK Code Generator Version: 3.116.0-df613dbc-20260803-154903
+ * IBM OpenAPI SDK Code Generator Version: 3.117.1-c28a0a4f-20260924-094841
  */
 
 import * as extend from 'extend';
@@ -137,9 +137,13 @@ class SecretsManagerInstanceManagementV2 extends BaseService {
    *
    * Generate a Vault admin token for authenticating to your Vault Dedicated cluster. The token is valid for 1 hour and
    * grants administrative privileges. Use only for initial setup and cluster management, then revoke immediately.
+   * Optionally, set response_wrapping to true in the request body to receive a Vault response-wrapped token instead of
+   * a plain admin token.
    *
    * @param {Object} params - The parameters to send to the service.
    * @param {string} params.id - Secrets Manager instance ID.
+   * @param {boolean} [params.responseWrapping] - If true, returns a Vault response-wrapped token (wrapped_token). If
+   * false or absent, returns a plain admin token (token).
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<SecretsManagerInstanceManagementV2.Response<SecretsManagerInstanceManagementV2.Token>>}
    */
@@ -148,11 +152,15 @@ class SecretsManagerInstanceManagementV2 extends BaseService {
   ): Promise<SecretsManagerInstanceManagementV2.Response<SecretsManagerInstanceManagementV2.Token>> {
     const _params = { ...params };
     const _requiredParams = ['id'];
-    const _validParams = ['id', 'signal', 'headers'];
+    const _validParams = ['id', 'responseWrapping', 'signal', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
     }
+
+    const body = {
+      'response_wrapping': _params.responseWrapping,
+    };
 
     const path = {
       'id': _params.id,
@@ -164,6 +172,7 @@ class SecretsManagerInstanceManagementV2 extends BaseService {
       options: {
         url: '/v2/instances/{id}/admintokens',
         method: 'POST',
+        body,
         path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
@@ -173,6 +182,7 @@ class SecretsManagerInstanceManagementV2 extends BaseService {
           this.baseOptions.headers,
           {
             'Accept': 'application/json',
+            'Content-Type': 'application/json',
           },
           _params.headers
         ),
@@ -357,7 +367,7 @@ class SecretsManagerInstanceManagementV2 extends BaseService {
    *
    * Create a new destination between your Vault Dedicated cluster and an IBM Cloud service instance.
    *
-   * Returns `202 Accepted` with `state: not_started`. Provisioning completes asynchronously — poll `GET
+   * Returns `202 Accepted` with `state: provisioning`. Provisioning completes asynchronously — poll `GET
    * /destinations/{id}` until `state` transitions to `succeeded` or `failed`.
    *
    * **Beta**: Only Gen 1 (Classic) IBM Cloud Database service instances are supported. Gen 2 instances are rejected
@@ -368,24 +378,22 @@ class SecretsManagerInstanceManagementV2 extends BaseService {
    *
    * @param {Object} params - The parameters to send to the service.
    * @param {string} params.instanceId - Secrets Manager instance ID.
-   * @param {CreateInstanceDestinationRequest} params.destinationPrototype -
+   * @param {CreateDestinationRequest} params.destinationPrototype -
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
-   * @returns {Promise<SecretsManagerInstanceManagementV2.Response<SecretsManagerInstanceManagementV2.EmptyObject>>}
+   * @returns {Promise<SecretsManagerInstanceManagementV2.Response<SecretsManagerInstanceManagementV2.IbmCloudDatabaseDestination>>}
    */
   public createInstanceDestination(
     params: SecretsManagerInstanceManagementV2.CreateInstanceDestinationParams
-  ): Promise<SecretsManagerInstanceManagementV2.Response<SecretsManagerInstanceManagementV2.EmptyObject>> {
+  ): Promise<SecretsManagerInstanceManagementV2.Response<SecretsManagerInstanceManagementV2.IbmCloudDatabaseDestination>> {
     const _params = { ...params };
-    const _requiredParams = ['instanceId'];
-    const _validParams = ['instanceId', 'signal', 'headers'];
+    const _requiredParams = ['instanceId', 'destinationPrototype'];
+    const _validParams = ['instanceId', 'destinationPrototype', 'signal', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
     }
 
-    const body = {
-    };
-
+    const body = _params.destinationPrototype;
     const path = {
       'instance_id': _params.instanceId,
     };
@@ -424,18 +432,18 @@ class SecretsManagerInstanceManagementV2 extends BaseService {
    *
    * Retrieve details and current state for a specific destination for your Vault Dedicated cluster.
    *
-   * Returns `404` if the destination does not exist. A deleted destination is immediately absent from GET — the
-   * `deleting` state is internal only and never returned to callers.
+   * Returns `404` if the destination does not exist. A destination undergoing deletion may appear with a `deleting`
+   * state before it is fully removed.
    *
    * @param {Object} params - The parameters to send to the service.
    * @param {string} params.instanceId - Secrets Manager instance ID.
    * @param {string} params.destinationId - Destination ID.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
-   * @returns {Promise<SecretsManagerInstanceManagementV2.Response<SecretsManagerInstanceManagementV2.EmptyObject>>}
+   * @returns {Promise<SecretsManagerInstanceManagementV2.Response<SecretsManagerInstanceManagementV2.IbmCloudDatabaseDestination>>}
    */
   public getInstanceDestination(
     params: SecretsManagerInstanceManagementV2.GetInstanceDestinationParams
-  ): Promise<SecretsManagerInstanceManagementV2.Response<SecretsManagerInstanceManagementV2.EmptyObject>> {
+  ): Promise<SecretsManagerInstanceManagementV2.Response<SecretsManagerInstanceManagementV2.IbmCloudDatabaseDestination>> {
     const _params = { ...params };
     const _requiredParams = ['instanceId', 'destinationId'];
     const _validParams = ['instanceId', 'destinationId', 'signal', 'headers'];
@@ -485,14 +493,14 @@ class SecretsManagerInstanceManagementV2 extends BaseService {
    * @param {Object} params - The parameters to send to the service.
    * @param {string} params.instanceId - Secrets Manager instance ID.
    * @param {string} params.destinationId - Destination ID.
-   * @param {string} [params.name] - Updated name (must remain unique per instance).
+   * @param {string} [params.name] - Updated name.
    * @param {string} [params.description] - Updated description.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
-   * @returns {Promise<SecretsManagerInstanceManagementV2.Response<SecretsManagerInstanceManagementV2.EmptyObject>>}
+   * @returns {Promise<SecretsManagerInstanceManagementV2.Response<SecretsManagerInstanceManagementV2.IbmCloudDatabaseDestination>>}
    */
   public updateInstanceDestination(
     params: SecretsManagerInstanceManagementV2.UpdateInstanceDestinationParams
-  ): Promise<SecretsManagerInstanceManagementV2.Response<SecretsManagerInstanceManagementV2.EmptyObject>> {
+  ): Promise<SecretsManagerInstanceManagementV2.Response<SecretsManagerInstanceManagementV2.IbmCloudDatabaseDestination>> {
     const _params = { ...params };
     const _requiredParams = ['instanceId', 'destinationId'];
     const _validParams = ['instanceId', 'destinationId', 'name', 'description', 'signal', 'headers'];
@@ -543,8 +551,8 @@ class SecretsManagerInstanceManagementV2 extends BaseService {
   /**
    * Delete destination.
    *
-   * Delete a destination for your Vault Dedicated cluster. A deleted destination is immediately absent from GET after
-   * this call returns 204.
+   * Delete a destination for your Vault Dedicated cluster. Returns `202 Accepted` and begins deletion asynchronously —
+   * the destination is removed from `GET /destinations` once deletion completes.
    *
    * A `failed` destination still counts against the per-instance quota until deleted.
    *
@@ -554,11 +562,11 @@ class SecretsManagerInstanceManagementV2 extends BaseService {
    * @param {string} params.instanceId - Secrets Manager instance ID.
    * @param {string} params.destinationId - Destination ID.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
-   * @returns {Promise<SecretsManagerInstanceManagementV2.Response<SecretsManagerInstanceManagementV2.EmptyObject>>}
+   * @returns {Promise<SecretsManagerInstanceManagementV2.Response<SecretsManagerInstanceManagementV2.IbmCloudDatabaseDestination>>}
    */
   public deleteInstanceDestination(
     params: SecretsManagerInstanceManagementV2.DeleteInstanceDestinationParams
-  ): Promise<SecretsManagerInstanceManagementV2.Response<SecretsManagerInstanceManagementV2.EmptyObject>> {
+  ): Promise<SecretsManagerInstanceManagementV2.Response<SecretsManagerInstanceManagementV2.IbmCloudDatabaseDestination>> {
     const _params = { ...params };
     const _requiredParams = ['instanceId', 'destinationId'];
     const _validParams = ['instanceId', 'destinationId', 'signal', 'headers'];
@@ -586,6 +594,7 @@ class SecretsManagerInstanceManagementV2 extends BaseService {
           sdkHeaders,
           this.baseOptions.headers,
           {
+            'Accept': 'application/json',
           },
           _params.headers
         ),
@@ -636,6 +645,10 @@ namespace SecretsManagerInstanceManagementV2 {
   export interface CreateVaultAdmintokenParams extends DefaultParams {
     /** Secrets Manager instance ID. */
     id: string;
+    /** If true, returns a Vault response-wrapped token (wrapped_token). If false or absent, returns a plain admin
+     *  token (token).
+     */
+    responseWrapping?: boolean;
   }
 
   /** Parameters for the `deleteInstanceAdmintokens` operation. */
@@ -666,6 +679,7 @@ namespace SecretsManagerInstanceManagementV2 {
       PROVISIONING = 'provisioning',
       SUCCEEDED = 'succeeded',
       FAILED = 'failed',
+      DELETING = 'deleting',
     }
   }
 
@@ -673,7 +687,7 @@ namespace SecretsManagerInstanceManagementV2 {
   export interface CreateInstanceDestinationParams extends DefaultParams {
     /** Secrets Manager instance ID. */
     instanceId: string;
-    destinationPrototype: CreateInstanceDestinationRequest;
+    destinationPrototype: CreateDestinationRequest;
   }
 
   /** Parameters for the `getInstanceDestination` operation. */
@@ -690,7 +704,7 @@ namespace SecretsManagerInstanceManagementV2 {
     instanceId: string;
     /** Destination ID. */
     destinationId: string;
-    /** Updated name (must remain unique per instance). */
+    /** Updated name. */
     name?: string;
     /** Updated description. */
     description?: string;
@@ -729,11 +743,12 @@ namespace SecretsManagerInstanceManagementV2 {
     /** Optional description. */
     description?: string;
     /** Destination state:
-     *  - `not_started`: Job accepted, waiting to start provisioning
+     *  - `not_started`: Initial state before the first provisioning attempt begins
      *  - `provisioning`: Provisioning in progress — poll until `succeeded` or `failed`
      *  - `succeeded`: Destination ready and usable
-     *  - `failed`: Provisioning failed — terminal state; delete and recreate.
-     *    A `failed` destination still counts against the per-instance quota until deleted.
+     *  - `failed`: Terminal state reached when provisioning or deletion fails. A `failed` destination still counts
+     *  against the per-instance quota until deleted.
+     *  - `deleting`: Deletion in progress.
      */
     state: Destination.Constants.State | string;
     /** Timestamp when the destination was created. */
@@ -742,6 +757,10 @@ namespace SecretsManagerInstanceManagementV2 {
     updated_at: string;
     /** IAM identity that created the destination. */
     created_by?: string;
+    /** Human-readable message providing additional context about the current state. Present only when non-empty —
+     *  set when `state` is `failed`, describing why provisioning or deletion failed.
+     */
+    message?: string;
   }
   export namespace Destination {
     export namespace Constants {
@@ -749,12 +768,13 @@ namespace SecretsManagerInstanceManagementV2 {
       export enum Type {
         IBM_CLOUD_DATABASE = 'ibm_cloud_database',
       }
-      /** Destination state: - `not_started`: Job accepted, waiting to start provisioning - `provisioning`: Provisioning in progress — poll until `succeeded` or `failed` - `succeeded`: Destination ready and usable - `failed`: Provisioning failed — terminal state; delete and recreate. A `failed` destination still counts against the per-instance quota until deleted. */
+      /** Destination state: - `not_started`: Initial state before the first provisioning attempt begins - `provisioning`: Provisioning in progress — poll until `succeeded` or `failed` - `succeeded`: Destination ready and usable - `failed`: Terminal state reached when provisioning or deletion fails. A `failed` destination still counts against the per-instance quota until deleted. - `deleting`: Deletion in progress. */
       export enum State {
         NOT_STARTED = 'not_started',
         PROVISIONING = 'provisioning',
         SUCCEEDED = 'succeeded',
         FAILED = 'failed',
+        DELETING = 'deleting',
       }
     }
   }
@@ -767,6 +787,60 @@ namespace SecretsManagerInstanceManagementV2 {
     destinations: Destination[];
     /** Total number of destinations. Maximum 20 per instance. */
     total: number;
+  }
+
+  /**
+   * A destination resource representing a private network link to an IBM Cloud Database service instance on a Vault
+   * Dedicated cluster.
+   */
+  export interface IbmCloudDatabaseDestination {
+    /** Destination ID. */
+    id: string;
+    /** The URL of the destination resource. */
+    href?: string;
+    /** Destination name. */
+    name: string;
+    /** Destination type. */
+    type: IbmCloudDatabaseDestination.Constants.Type | string;
+    /** Optional description. */
+    description?: string;
+    /** Destination state:
+     *  - `not_started`: Initial state before the first provisioning attempt begins
+     *  - `provisioning`: Provisioning in progress — poll until `succeeded` or `failed`
+     *  - `succeeded`: Destination ready and usable
+     *  - `failed`: Terminal state reached when provisioning or deletion fails. A `failed` destination still counts
+     *  against the per-instance quota until deleted.
+     *  - `deleting`: Deletion in progress.
+     */
+    state: IbmCloudDatabaseDestination.Constants.State | string;
+    /** Timestamp when the destination was created. */
+    created_at: string;
+    /** Timestamp when the destination was last updated. */
+    updated_at: string;
+    /** IAM identity that created the destination. */
+    created_by?: string;
+    /** Human-readable message providing additional context about the current state. Present only when non-empty —
+     *  set when `state` is `failed`, describing why provisioning or deletion failed.
+     */
+    message?: string;
+    /** IBM Cloud Database service instance CRN. */
+    crn: string;
+  }
+  export namespace IbmCloudDatabaseDestination {
+    export namespace Constants {
+      /** Destination type. */
+      export enum Type {
+        IBM_CLOUD_DATABASE = 'ibm_cloud_database',
+      }
+      /** Destination state: - `not_started`: Initial state before the first provisioning attempt begins - `provisioning`: Provisioning in progress — poll until `succeeded` or `failed` - `succeeded`: Destination ready and usable - `failed`: Terminal state reached when provisioning or deletion fails. A `failed` destination still counts against the per-instance quota until deleted. - `deleting`: Deletion in progress. */
+      export enum State {
+        NOT_STARTED = 'not_started',
+        PROVISIONING = 'provisioning',
+        SUCCEEDED = 'succeeded',
+        FAILED = 'failed',
+        DELETING = 'deleting',
+      }
+    }
   }
 
   /**
@@ -800,11 +874,10 @@ namespace SecretsManagerInstanceManagementV2 {
   }
 
   /**
-   * Admin Token response.
+   * Admin token response. Exactly one of token or wrapped_token is present, never both. wrapped_token is returned only
+   * when response_wrapping: true is requested.
    */
   export interface Token {
-    /** The token value. */
-    token: string;
   }
 
   /**
@@ -895,18 +968,19 @@ namespace SecretsManagerInstanceManagementV2 {
   }
 
   /**
-   * CreateInstanceDestinationRequest.
+   * Response containing a plain Vault admin token.
    */
-  export interface CreateInstanceDestinationRequest extends CreateDestinationRequest {
+  export interface TokenPlainAdminToken extends Token {
+    /** The plain Vault admin token. */
+    token: string;
   }
 
   /**
-   * A destination resource representing a private network link to an IBM Cloud Database service instance on a Vault
-   * Dedicated cluster.
+   * Response containing a Vault response-wrapped token.
    */
-  export interface IbmCloudDatabaseDestination extends Destination {
-    /** IBM Cloud Database service instance CRN. */
-    crn: string;
+  export interface TokenWrappedAdminToken extends Token {
+    /** A Vault response-wrapped token. Present only when response_wrapping: true is requested. */
+    wrapped_token: string;
   }
 }
 
