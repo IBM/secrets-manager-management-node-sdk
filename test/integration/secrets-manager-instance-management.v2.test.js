@@ -48,6 +48,7 @@ describe('SecretsManagerInstanceManagementV2_integration', () => {
   test('createVaultAdmintoken()', async () => {
     const params = {
       id: 'bfc50c2e-d66d-4f37-9ccf-9713f8325b39',
+      responseWrapping: true,
     };
 
     const res = await secretsManagerInstanceManagementService.createVaultAdmintoken(params);
@@ -80,20 +81,31 @@ describe('SecretsManagerInstanceManagementV2_integration', () => {
   });
 
   test('createInstanceDestination()', async () => {
+    // Request models needed by this operation.
+
+    // CreateDestinationRequestIbmCloudDatabaseDestinationPrototype
+    const createDestinationRequestModel = {
+      name: 'my-postgres',
+      type: 'ibm_cloud_database',
+      description: 'Production PostgreSQL database',
+      crn: 'crn:v1:staging:public:databases-for-postgresql:us-south:a/791f5fb10986423e97aa8512f18b7e65:11111111-0000-4000-8000-111111111111::',
+    };
+
     const params = {
       instanceId: 'bfc50c2e-d66d-4f37-9ccf-9713f8325b39',
+      destinationPrototype: createDestinationRequestModel,
     };
 
     const res = await secretsManagerInstanceManagementService.createInstanceDestination(params);
     expect(res).toBeDefined();
-    expect(res.status).toBe(201);
+    expect(res.status).toBe(202);
     expect(res.result).toBeDefined();
   });
 
   test('getInstanceDestination()', async () => {
     const params = {
       instanceId: 'bfc50c2e-d66d-4f37-9ccf-9713f8325b39',
-      destinationId: 'b2c3d4e5-f6a7-8901-bcde-f12345678901',
+      destinationId: '6b86db04-2cca-4ef7-b9d1-b49d87fd37eb',
     };
 
     const res = await secretsManagerInstanceManagementService.getInstanceDestination(params);
@@ -105,9 +117,9 @@ describe('SecretsManagerInstanceManagementV2_integration', () => {
   test('updateInstanceDestination()', async () => {
     const params = {
       instanceId: 'bfc50c2e-d66d-4f37-9ccf-9713f8325b39',
-      destinationId: 'b2c3d4e5-f6a7-8901-bcde-f12345678901',
-      name: 'production-postgres-db',
-      description: 'Updated description for production database',
+      destinationId: '6b86db04-2cca-4ef7-b9d1-b49d87fd37eb',
+      name: 'my-postgres-updated',
+      description: 'Production PostgreSQL database',
     };
 
     const res = await secretsManagerInstanceManagementService.updateInstanceDestination(params);
@@ -130,12 +142,12 @@ describe('SecretsManagerInstanceManagementV2_integration', () => {
   test('deleteInstanceDestination()', async () => {
     const params = {
       instanceId: 'bfc50c2e-d66d-4f37-9ccf-9713f8325b39',
-      destinationId: 'b2c3d4e5-f6a7-8901-bcde-f12345678901',
+      destinationId: '6b86db04-2cca-4ef7-b9d1-b49d87fd37eb',
     };
 
     const res = await secretsManagerInstanceManagementService.deleteInstanceDestination(params);
     expect(res).toBeDefined();
-    expect(res.status).toBe(204);
+    expect(res.status).toBe(202);
     expect(res.result).toBeDefined();
   });
 });
