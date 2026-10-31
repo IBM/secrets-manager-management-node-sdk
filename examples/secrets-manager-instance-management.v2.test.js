@@ -79,7 +79,7 @@ describe('SecretsManagerInstanceManagementV2', () => {
     // begin-create_vault_admintoken
 
     const params = {
-      id: 'bfc50c2e-d66d-4f37-9ccf-9713f8325b39',
+      id: 'fe5c5c27-3e44-474a-9484-55892e12d6d1',
     };
 
     let res;
@@ -107,7 +107,7 @@ describe('SecretsManagerInstanceManagementV2', () => {
     // begin-get_instance
 
     const params = {
-      id: 'bfc50c2e-d66d-4f37-9ccf-9713f8325b39',
+      id: 'fe5c5c27-3e44-474a-9484-55892e12d6d1',
     };
 
     let res;
@@ -135,7 +135,7 @@ describe('SecretsManagerInstanceManagementV2', () => {
     // begin-list_instance_destinations
 
     const params = {
-      instanceId: 'bfc50c2e-d66d-4f37-9ccf-9713f8325b39',
+      instanceId: 'fe5c5c27-3e44-474a-9484-55892e12d6d1',
     };
 
     let res;
@@ -159,14 +159,28 @@ describe('SecretsManagerInstanceManagementV2', () => {
       expect(true).toBeFalsy();
     });
 
+    originalLog('createInstanceDestination() result:');
     // begin-create_instance_destination
 
-    const params = {
-      instanceId: 'bfc50c2e-d66d-4f37-9ccf-9713f8325b39',
+    // Request models needed by this operation.
+
+    // CreateDestinationRequestIbmCloudDatabaseDestinationPrototype
+    const createDestinationRequestModel = {
+      name: 'my-postgres',
+      type: 'ibm_cloud_database',
+      description: 'Production PostgreSQL database',
+      crn: 'crn:v1:bluemix:public:databases-for-postgresql:us-south:a/e91c8f42b3d74e1a9c2f05d8b67a3e10:3f8b1c7a-9d42-4e6f-b8a5-2c1d9e7f4b83::',
     };
 
+    const params = {
+      instanceId: 'fe5c5c27-3e44-474a-9484-55892e12d6d1',
+      destinationPrototype: createDestinationRequestModel,
+    };
+
+    let res;
     try {
-      await secretsManagerInstanceManagementService.createInstanceDestination(params);
+      res = await secretsManagerInstanceManagementService.createInstanceDestination(params);
+      console.log(JSON.stringify(res.result, null, 2));
     } catch (err) {
       console.warn(err);
     }
@@ -184,15 +198,18 @@ describe('SecretsManagerInstanceManagementV2', () => {
       expect(true).toBeFalsy();
     });
 
+    originalLog('getInstanceDestination() result:');
     // begin-get_instance_destination
 
     const params = {
-      instanceId: 'bfc50c2e-d66d-4f37-9ccf-9713f8325b39',
+      instanceId: 'fe5c5c27-3e44-474a-9484-55892e12d6d1',
       destinationId: 'b2c3d4e5-f6a7-8901-bcde-f12345678901',
     };
 
+    let res;
     try {
-      await secretsManagerInstanceManagementService.getInstanceDestination(params);
+      res = await secretsManagerInstanceManagementService.getInstanceDestination(params);
+      console.log(JSON.stringify(res.result, null, 2));
     } catch (err) {
       console.warn(err);
     }
@@ -210,15 +227,20 @@ describe('SecretsManagerInstanceManagementV2', () => {
       expect(true).toBeFalsy();
     });
 
+    originalLog('updateInstanceDestination() result:');
     // begin-update_instance_destination
 
     const params = {
-      instanceId: 'bfc50c2e-d66d-4f37-9ccf-9713f8325b39',
+      instanceId: 'fe5c5c27-3e44-474a-9484-55892e12d6d1',
       destinationId: 'b2c3d4e5-f6a7-8901-bcde-f12345678901',
+      name: 'my-postgres-updated',
+      description: 'Production PostgreSQL database',
     };
 
+    let res;
     try {
-      await secretsManagerInstanceManagementService.updateInstanceDestination(params);
+      res = await secretsManagerInstanceManagementService.updateInstanceDestination(params);
+      console.log(JSON.stringify(res.result, null, 2));
     } catch (err) {
       console.warn(err);
     }
@@ -239,7 +261,7 @@ describe('SecretsManagerInstanceManagementV2', () => {
     // begin-delete_instance_admintokens
 
     const params = {
-      id: 'bfc50c2e-d66d-4f37-9ccf-9713f8325b39',
+      id: 'fe5c5c27-3e44-474a-9484-55892e12d6d1',
     };
 
     try {
@@ -261,15 +283,18 @@ describe('SecretsManagerInstanceManagementV2', () => {
       expect(true).toBeFalsy();
     });
 
+    originalLog('deleteInstanceDestination() result:');
     // begin-delete_instance_destination
 
     const params = {
-      instanceId: 'bfc50c2e-d66d-4f37-9ccf-9713f8325b39',
+      instanceId: 'fe5c5c27-3e44-474a-9484-55892e12d6d1',
       destinationId: 'b2c3d4e5-f6a7-8901-bcde-f12345678901',
     };
 
+    let res;
     try {
-      await secretsManagerInstanceManagementService.deleteInstanceDestination(params);
+      res = await secretsManagerInstanceManagementService.deleteInstanceDestination(params);
+      console.log(JSON.stringify(res.result, null, 2));
     } catch (err) {
       console.warn(err);
     }
