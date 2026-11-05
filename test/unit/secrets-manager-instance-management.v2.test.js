@@ -133,10 +133,10 @@ describe('SecretsManagerInstanceManagementV2', () => {
     describe('positive tests', () => {
       function __createVaultAdmintokenTest() {
         // Construct the params object for operation createVaultAdmintoken
-        const id = 'fe5c5c27-3e44-474a-9484-55892e12d6d1';
+        const instanceId = 'fe5c5c27-3e44-474a-9484-55892e12d6d1';
         const responseWrapping = true;
         const createVaultAdmintokenParams = {
-          id,
+          instanceId,
           responseWrapping,
         };
 
@@ -150,12 +150,12 @@ describe('SecretsManagerInstanceManagementV2', () => {
 
         const mockRequestOptions = getOptions(createRequestMock);
 
-        checkUrlAndMethod(mockRequestOptions, '/v2/instances/{id}/admintokens', 'POST');
+        checkUrlAndMethod(mockRequestOptions, '/v2/instances/{instance_id}/admintokens', 'POST');
         const expectedAccept = 'application/json';
         const expectedContentType = 'application/json';
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
         expect(mockRequestOptions.body.response_wrapping).toEqual(responseWrapping);
-        expect(mockRequestOptions.path.id).toEqual(id);
+        expect(mockRequestOptions.path.instance_id).toEqual(instanceId);
       }
 
       test('should pass the right params to createRequest with enable and disable retries', () => {
@@ -175,11 +175,11 @@ describe('SecretsManagerInstanceManagementV2', () => {
 
       test('should prioritize user-given headers', () => {
         // parameters
-        const id = 'fe5c5c27-3e44-474a-9484-55892e12d6d1';
+        const instanceId = 'fe5c5c27-3e44-474a-9484-55892e12d6d1';
         const userAccept = 'fake/accept';
         const userContentType = 'fake/contentType';
         const createVaultAdmintokenParams = {
-          id,
+          instanceId,
           headers: {
             Accept: userAccept,
             'Content-Type': userContentType,
@@ -216,61 +216,61 @@ describe('SecretsManagerInstanceManagementV2', () => {
     });
   });
 
-  describe('deleteInstanceAdmintokens', () => {
+  describe('deleteVaultAdmintokens', () => {
     describe('positive tests', () => {
-      function __deleteInstanceAdmintokensTest() {
-        // Construct the params object for operation deleteInstanceAdmintokens
-        const id = 'fe5c5c27-3e44-474a-9484-55892e12d6d1';
-        const deleteInstanceAdmintokensParams = {
-          id,
+      function __deleteVaultAdmintokensTest() {
+        // Construct the params object for operation deleteVaultAdmintokens
+        const instanceId = 'fe5c5c27-3e44-474a-9484-55892e12d6d1';
+        const deleteVaultAdmintokensParams = {
+          instanceId,
         };
 
-        const deleteInstanceAdmintokensResult = secretsManagerInstanceManagementService.deleteInstanceAdmintokens(deleteInstanceAdmintokensParams);
+        const deleteVaultAdmintokensResult = secretsManagerInstanceManagementService.deleteVaultAdmintokens(deleteVaultAdmintokensParams);
 
         // all methods should return a Promise
-        expectToBePromise(deleteInstanceAdmintokensResult);
+        expectToBePromise(deleteVaultAdmintokensResult);
 
         // assert that create request was called
         expect(createRequestMock).toHaveBeenCalledTimes(1);
 
         const mockRequestOptions = getOptions(createRequestMock);
 
-        checkUrlAndMethod(mockRequestOptions, '/v2/instances/{id}/admintokens', 'DELETE');
+        checkUrlAndMethod(mockRequestOptions, '/v2/instances/{instance_id}/admintokens', 'DELETE');
         const expectedAccept = undefined;
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
-        expect(mockRequestOptions.path.id).toEqual(id);
+        expect(mockRequestOptions.path.instance_id).toEqual(instanceId);
       }
 
       test('should pass the right params to createRequest with enable and disable retries', () => {
         // baseline test
-        __deleteInstanceAdmintokensTest();
+        __deleteVaultAdmintokensTest();
 
         // enable retries and test again
         createRequestMock.mockClear();
         secretsManagerInstanceManagementService.enableRetries();
-        __deleteInstanceAdmintokensTest();
+        __deleteVaultAdmintokensTest();
 
         // disable retries and test again
         createRequestMock.mockClear();
         secretsManagerInstanceManagementService.disableRetries();
-        __deleteInstanceAdmintokensTest();
+        __deleteVaultAdmintokensTest();
       });
 
       test('should prioritize user-given headers', () => {
         // parameters
-        const id = 'fe5c5c27-3e44-474a-9484-55892e12d6d1';
+        const instanceId = 'fe5c5c27-3e44-474a-9484-55892e12d6d1';
         const userAccept = 'fake/accept';
         const userContentType = 'fake/contentType';
-        const deleteInstanceAdmintokensParams = {
-          id,
+        const deleteVaultAdmintokensParams = {
+          instanceId,
           headers: {
             Accept: userAccept,
             'Content-Type': userContentType,
           },
         };
 
-        secretsManagerInstanceManagementService.deleteInstanceAdmintokens(deleteInstanceAdmintokensParams);
+        secretsManagerInstanceManagementService.deleteVaultAdmintokens(deleteVaultAdmintokensParams);
         checkMediaHeaders(createRequestMock, userAccept, userContentType);
       });
     });
@@ -279,7 +279,7 @@ describe('SecretsManagerInstanceManagementV2', () => {
       test('should enforce required parameters', async () => {
         let err;
         try {
-          await secretsManagerInstanceManagementService.deleteInstanceAdmintokens({});
+          await secretsManagerInstanceManagementService.deleteVaultAdmintokens({});
         } catch (e) {
           err = e;
         }
@@ -290,7 +290,7 @@ describe('SecretsManagerInstanceManagementV2', () => {
       test('should reject promise when required params are not given', async () => {
         let err;
         try {
-          await secretsManagerInstanceManagementService.deleteInstanceAdmintokens();
+          await secretsManagerInstanceManagementService.deleteVaultAdmintokens();
         } catch (e) {
           err = e;
         }
@@ -304,9 +304,9 @@ describe('SecretsManagerInstanceManagementV2', () => {
     describe('positive tests', () => {
       function __getInstanceTest() {
         // Construct the params object for operation getInstance
-        const id = 'fe5c5c27-3e44-474a-9484-55892e12d6d1';
+        const instanceId = 'fe5c5c27-3e44-474a-9484-55892e12d6d1';
         const getInstanceParams = {
-          id,
+          instanceId,
         };
 
         const getInstanceResult = secretsManagerInstanceManagementService.getInstance(getInstanceParams);
@@ -319,11 +319,11 @@ describe('SecretsManagerInstanceManagementV2', () => {
 
         const mockRequestOptions = getOptions(createRequestMock);
 
-        checkUrlAndMethod(mockRequestOptions, '/v2/instances/{id}', 'GET');
+        checkUrlAndMethod(mockRequestOptions, '/v2/instances/{instance_id}', 'GET');
         const expectedAccept = 'application/json';
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
-        expect(mockRequestOptions.path.id).toEqual(id);
+        expect(mockRequestOptions.path.instance_id).toEqual(instanceId);
       }
 
       test('should pass the right params to createRequest with enable and disable retries', () => {
@@ -343,11 +343,11 @@ describe('SecretsManagerInstanceManagementV2', () => {
 
       test('should prioritize user-given headers', () => {
         // parameters
-        const id = 'fe5c5c27-3e44-474a-9484-55892e12d6d1';
+        const instanceId = 'fe5c5c27-3e44-474a-9484-55892e12d6d1';
         const userAccept = 'fake/accept';
         const userContentType = 'fake/contentType';
         const getInstanceParams = {
-          id,
+          instanceId,
           headers: {
             Accept: userAccept,
             'Content-Type': userContentType,

@@ -35,7 +35,7 @@ import { getSdkHeaders } from '../lib/common';
  * Use the IBM  Cloud® Secrets Manager Instance Management API to manage service instances of the Vault Dedicated plan.
  * - Get service instance details including cluster state, endpoints, and key management service.
  * - Generate a Vault admin token for authenticating to your Vault Dedicated cluster.
- * - Revoke all active Vault admin tokens.
+ * - Delete all active Vault admin tokens.
  * - Request payloads must not exceed 1 MB; requests larger than this limit will be rejected with a `413 Payload Too
  * Large` response.
  *
@@ -136,12 +136,12 @@ class SecretsManagerInstanceManagementV2 extends BaseService {
    * Create admin token.
    *
    * Generate a Vault admin token for authenticating to your Vault Dedicated cluster. The token is valid for 1 hour and
-   * grants administrative privileges. Use only for initial setup and cluster management, then revoke immediately.
+   * grants administrative privileges. Use only for initial setup and cluster management, then delete immediately.
    * Optionally, set response_wrapping to true in the request body to receive a Vault response-wrapped token instead of
    * a plain admin token.
    *
    * @param {Object} params - The parameters to send to the service.
-   * @param {string} params.id - Secrets Manager instance ID.
+   * @param {string} params.instanceId - Secrets Manager instance ID.
    * @param {boolean} [params.responseWrapping] - If true, returns a Vault response-wrapped token (wrapped_token). If
    * false or absent, returns a plain admin token (token).
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
@@ -151,8 +151,8 @@ class SecretsManagerInstanceManagementV2 extends BaseService {
     params: SecretsManagerInstanceManagementV2.CreateVaultAdmintokenParams
   ): Promise<SecretsManagerInstanceManagementV2.Response<SecretsManagerInstanceManagementV2.Token>> {
     const _params = { ...params };
-    const _requiredParams = ['id'];
-    const _validParams = ['id', 'responseWrapping', 'signal', 'headers'];
+    const _requiredParams = ['instanceId'];
+    const _validParams = ['instanceId', 'responseWrapping', 'signal', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -163,14 +163,14 @@ class SecretsManagerInstanceManagementV2 extends BaseService {
     };
 
     const path = {
-      'id': _params.id,
+      'instance_id': _params.instanceId,
     };
 
     const sdkHeaders = getSdkHeaders(SecretsManagerInstanceManagementV2.DEFAULT_SERVICE_NAME, 'v2', 'createVaultAdmintoken');
 
     const parameters = {
       options: {
-        url: '/v2/instances/{id}/admintokens',
+        url: '/v2/instances/{instance_id}/admintokens',
         method: 'POST',
         body,
         path,
@@ -198,33 +198,34 @@ class SecretsManagerInstanceManagementV2 extends BaseService {
   /**
    * Delete admin tokens.
    *
-   * Revoke all active Vault admin tokens. This immediately invalidates all existing admin tokens.
+   * Delete all active Vault admin tokens. This immediately invalidates all existing admin tokens including wrapped
+   * tokens.
    *
    * @param {Object} params - The parameters to send to the service.
-   * @param {string} params.id - Secrets Manager instance ID.
+   * @param {string} params.instanceId - Secrets Manager instance ID.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<SecretsManagerInstanceManagementV2.Response<SecretsManagerInstanceManagementV2.EmptyObject>>}
    */
-  public deleteInstanceAdmintokens(
-    params: SecretsManagerInstanceManagementV2.DeleteInstanceAdmintokensParams
+  public deleteVaultAdmintokens(
+    params: SecretsManagerInstanceManagementV2.DeleteVaultAdmintokensParams
   ): Promise<SecretsManagerInstanceManagementV2.Response<SecretsManagerInstanceManagementV2.EmptyObject>> {
     const _params = { ...params };
-    const _requiredParams = ['id'];
-    const _validParams = ['id', 'signal', 'headers'];
+    const _requiredParams = ['instanceId'];
+    const _validParams = ['instanceId', 'signal', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
     }
 
     const path = {
-      'id': _params.id,
+      'instance_id': _params.instanceId,
     };
 
-    const sdkHeaders = getSdkHeaders(SecretsManagerInstanceManagementV2.DEFAULT_SERVICE_NAME, 'v2', 'deleteInstanceAdmintokens');
+    const sdkHeaders = getSdkHeaders(SecretsManagerInstanceManagementV2.DEFAULT_SERVICE_NAME, 'v2', 'deleteVaultAdmintokens');
 
     const parameters = {
       options: {
-        url: '/v2/instances/{id}/admintokens',
+        url: '/v2/instances/{instance_id}/admintokens',
         method: 'DELETE',
         path,
       },
@@ -255,7 +256,7 @@ class SecretsManagerInstanceManagementV2 extends BaseService {
    * Get service instance details including cluster state, endpoints, and key management service.
    *
    * @param {Object} params - The parameters to send to the service.
-   * @param {string} params.id - Secrets Manager instance ID.
+   * @param {string} params.instanceId - Secrets Manager instance ID.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<SecretsManagerInstanceManagementV2.Response<SecretsManagerInstanceManagementV2.Instance>>}
    */
@@ -263,22 +264,22 @@ class SecretsManagerInstanceManagementV2 extends BaseService {
     params: SecretsManagerInstanceManagementV2.GetInstanceParams
   ): Promise<SecretsManagerInstanceManagementV2.Response<SecretsManagerInstanceManagementV2.Instance>> {
     const _params = { ...params };
-    const _requiredParams = ['id'];
-    const _validParams = ['id', 'signal', 'headers'];
+    const _requiredParams = ['instanceId'];
+    const _validParams = ['instanceId', 'signal', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
     }
 
     const path = {
-      'id': _params.id,
+      'instance_id': _params.instanceId,
     };
 
     const sdkHeaders = getSdkHeaders(SecretsManagerInstanceManagementV2.DEFAULT_SERVICE_NAME, 'v2', 'getInstance');
 
     const parameters = {
       options: {
-        url: '/v2/instances/{id}',
+        url: '/v2/instances/{instance_id}',
         method: 'GET',
         path,
       },
@@ -644,23 +645,23 @@ namespace SecretsManagerInstanceManagementV2 {
   /** Parameters for the `createVaultAdmintoken` operation. */
   export interface CreateVaultAdmintokenParams extends DefaultParams {
     /** Secrets Manager instance ID. */
-    id: string;
+    instanceId: string;
     /** If true, returns a Vault response-wrapped token (wrapped_token). If false or absent, returns a plain admin
      *  token (token).
      */
     responseWrapping?: boolean;
   }
 
-  /** Parameters for the `deleteInstanceAdmintokens` operation. */
-  export interface DeleteInstanceAdmintokensParams extends DefaultParams {
+  /** Parameters for the `deleteVaultAdmintokens` operation. */
+  export interface DeleteVaultAdmintokensParams extends DefaultParams {
     /** Secrets Manager instance ID. */
-    id: string;
+    instanceId: string;
   }
 
   /** Parameters for the `getInstance` operation. */
   export interface GetInstanceParams extends DefaultParams {
     /** Secrets Manager instance ID. */
-    id: string;
+    instanceId: string;
   }
 
   /** Parameters for the `listInstanceDestinations` operation. */
