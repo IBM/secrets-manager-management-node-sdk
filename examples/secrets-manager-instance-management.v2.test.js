@@ -79,7 +79,7 @@ describe('SecretsManagerInstanceManagementV2', () => {
     // begin-create_vault_admintoken
 
     const params = {
-      id: 'fe5c5c27-3e44-474a-9484-55892e12d6d1',
+      instanceId: 'fe5c5c27-3e44-474a-9484-55892e12d6d1',
     };
 
     let res;
@@ -107,7 +107,7 @@ describe('SecretsManagerInstanceManagementV2', () => {
     // begin-get_instance
 
     const params = {
-      id: 'fe5c5c27-3e44-474a-9484-55892e12d6d1',
+      instanceId: 'fe5c5c27-3e44-474a-9484-55892e12d6d1',
     };
 
     let res;
@@ -248,7 +248,7 @@ describe('SecretsManagerInstanceManagementV2', () => {
     // end-update_instance_destination
   });
 
-  test('deleteInstanceAdmintokens request example', async () => {
+  test('deleteVaultAdmintokens request example', async () => {
     consoleLogMock.mockImplementation((output) => {
       originalLog(output);
     });
@@ -258,19 +258,19 @@ describe('SecretsManagerInstanceManagementV2', () => {
       expect(true).toBeFalsy();
     });
 
-    // begin-delete_instance_admintokens
+    // begin-delete_vault_admintokens
 
     const params = {
-      id: 'fe5c5c27-3e44-474a-9484-55892e12d6d1',
+      instanceId: 'fe5c5c27-3e44-474a-9484-55892e12d6d1',
     };
 
     try {
-      await secretsManagerInstanceManagementService.deleteInstanceAdmintokens(params);
+      await secretsManagerInstanceManagementService.deleteVaultAdmintokens(params);
     } catch (err) {
       console.warn(err);
     }
 
-    // end-delete_instance_admintokens
+    // end-delete_vault_admintokens
   });
 
   test('deleteInstanceDestination request example', async () => {

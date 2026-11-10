@@ -47,7 +47,7 @@ describe('SecretsManagerInstanceManagementV2_integration', () => {
 
   test('createVaultAdmintoken()', async () => {
     const params = {
-      id: 'fe5c5c27-3e44-474a-9484-55892e12d6d1',
+      instanceId: 'fe5c5c27-3e44-474a-9484-55892e12d6d1',
       responseWrapping: true,
     };
 
@@ -59,7 +59,7 @@ describe('SecretsManagerInstanceManagementV2_integration', () => {
 
   test('getInstance()', async () => {
     const params = {
-      id: 'fe5c5c27-3e44-474a-9484-55892e12d6d1',
+      instanceId: 'fe5c5c27-3e44-474a-9484-55892e12d6d1',
     };
 
     const res = await secretsManagerInstanceManagementService.getInstance(params);
@@ -105,7 +105,7 @@ describe('SecretsManagerInstanceManagementV2_integration', () => {
   test('getInstanceDestination()', async () => {
     const params = {
       instanceId: 'fe5c5c27-3e44-474a-9484-55892e12d6d1',
-      destinationId: '057f97ce-23d2-43e4-9d5b-83661cd3589a',
+      destinationId: 'e56ac357-b8a9-4002-b683-e1561cb40d8e',
     };
 
     const res = await secretsManagerInstanceManagementService.getInstanceDestination(params);
@@ -117,7 +117,7 @@ describe('SecretsManagerInstanceManagementV2_integration', () => {
   test('updateInstanceDestination()', async () => {
     const params = {
       instanceId: 'fe5c5c27-3e44-474a-9484-55892e12d6d1',
-      destinationId: '057f97ce-23d2-43e4-9d5b-83661cd3589a',
+      destinationId: 'e56ac357-b8a9-4002-b683-e1561cb40d8e',
       name: 'my-postgres-updated',
       description: 'Production PostgreSQL database',
     };
@@ -128,12 +128,12 @@ describe('SecretsManagerInstanceManagementV2_integration', () => {
     expect(res.result).toBeDefined();
   });
 
-  test('deleteInstanceAdmintokens()', async () => {
+  test('deleteVaultAdmintokens()', async () => {
     const params = {
-      id: 'fe5c5c27-3e44-474a-9484-55892e12d6d1',
+      instanceId: 'fe5c5c27-3e44-474a-9484-55892e12d6d1',
     };
 
-    const res = await secretsManagerInstanceManagementService.deleteInstanceAdmintokens(params);
+    const res = await secretsManagerInstanceManagementService.deleteVaultAdmintokens(params);
     expect(res).toBeDefined();
     expect(res.status).toBe(204);
     expect(res.result).toBeDefined();
@@ -142,7 +142,7 @@ describe('SecretsManagerInstanceManagementV2_integration', () => {
   test('deleteInstanceDestination()', async () => {
     const params = {
       instanceId: 'fe5c5c27-3e44-474a-9484-55892e12d6d1',
-      destinationId: '057f97ce-23d2-43e4-9d5b-83661cd3589a',
+      destinationId: 'e56ac357-b8a9-4002-b683-e1561cb40d8e',
     };
 
     const res = await secretsManagerInstanceManagementService.deleteInstanceDestination(params);
